@@ -1,6 +1,6 @@
-module github.com/sandeepbera/mcp-server
+module github.com/sandipbera35/mcp
 
-go 1.25.0
+go 1.23.0
 
 require (
 	github.com/joho/godotenv v1.5.1

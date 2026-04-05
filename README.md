@@ -87,8 +87,8 @@ func RegisterEchoTool(s *server.MCPServer) {
 }
 
 func echoHandler(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	message, ok := request.Params.Arguments["message"].(string)
-	if !ok {
+	message, err := request.RequireString("message")
+	if err != nil {
 		return mcp.NewToolResultError("message argument is required"), nil
 	}
 

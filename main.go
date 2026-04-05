@@ -6,7 +6,7 @@ import (
 
 	"github.com/joho/godotenv"
 	"github.com/mark3labs/mcp-go/server"
-	"github.com/sandeepbera/mcp-server/tools"
+	"github.com/sandipbera35/mcp/tools"
 )
 
 func main() {

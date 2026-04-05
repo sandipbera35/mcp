@@ -8,4 +8,6 @@ import (
 func RegisterAll(s *server.MCPServer) {
 	RegisterFetchURLTool(s)
 	RegisterReadFileTool(s)
+	RegisterEchoTool(s)
+	RegisterWebSearchTool(s)
 }
