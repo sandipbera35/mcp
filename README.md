@@ -56,8 +56,60 @@ client, err := mcpclient.NewSSEClient("http://localhost:8080/sse")
 
 ## Extending the Server
 
-To add new tools, simply:
+To add new tools, follow these steps:
 
-1. Create a new handler file in the `tools` package (e.g., `tools/my_tool.go`).
-2. Follow the model structure from `fetch_url.go`.
-3. Register it via the central `RegisterAll` function in `tools/tools.go`.
+1. Create a new file in the `tools/` package (e.g., `tools/my_tool.go`).
+2. Define the tool using the `mcp.Tool` struct and create a handler function.
+3. Register the tool in the `tools/tools.go` file.
+
+### Example: Adding an Echo Tool
+
+**1. Create `tools/echo.go`:**
+
+```go
+package tools
+
+import (
+	"context"
+	"fmt"
+	"github.com/mark3labs/mcp-go/mcp"
+	"github.com/mark3labs/mcp-go/server"
+)
+
+// RegisterEchoTool adds the echo tool to the MCP server
+func RegisterEchoTool(s *server.MCPServer) {
+	echoTool := mcp.NewTool("echo",
+		mcp.WithDescription("Echoes the provided message back"),
+		mcp.WithString("message", mcp.Required(), mcp.Description("The message to echo")),
+	)
+
+	s.AddTool(echoTool, echoHandler)
+}
+
+func echoHandler(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	message, ok := request.Params.Arguments["message"].(string)
+	if !ok {
+		return mcp.NewToolResultError("message argument is required"), nil
+	}
+
+	response := fmt.Sprintf("Echo: %s", message)
+	return mcp.NewToolResultText(response), nil
+}
+```
+
+**2. Register in `tools/tools.go`:**
+
+```go
+package tools
+
+import (
+	"github.com/mark3labs/mcp-go/server"
+)
+
+// RegisterAll initializes and adds all custom tools to the provided MCP server.
+func RegisterAll(s *server.MCPServer) {
+	RegisterFetchUrlTool(s)
+	RegisterReadFileTool(s)
+	RegisterEchoTool(s) // <--- Add your new tool here
+}
+```
