@@ -4,9 +4,8 @@ import (
 	"context"
 	"testing"
 
-	"github.com/sandipbera35/mcp/tools"
-
 	"github.com/mark3labs/mcp-go/mcp"
+	"github.com/sandipbera35/mcp/tools"
 )
 
 func TestEchoHandler(t *testing.T) {
