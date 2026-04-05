@@ -27,6 +27,8 @@ func main() {
 		server.WithToolCapabilities(true),
 		server.WithResourceCapabilities(true, true),
 		server.WithLogging(),
+		server.WithInstructions("You are a helpful command line assistant. Use the tools to get information. Be concise and to the point. Don't use any other tools. "),
+		server.WithRecovery(),
 	)
 
 	// Register Tools
@@ -36,7 +38,6 @@ func main() {
 	if port == "" {
 		port = "8080"
 	}
-
 	// Create and start the SSE server
 	sse := server.NewSSEServer(s)
 	log.Printf("MCP Server initialized and listening on port %s", port)

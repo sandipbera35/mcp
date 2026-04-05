@@ -14,7 +14,7 @@ func TestWebSearchHandler(t *testing.T) {
 	request := mcp.CallToolRequest{
 		Params: mcp.CallToolParams{
 			Name: "web_search",
-			Arguments: map[string]interface{}{
+			Arguments: map[string]any{
 				"query": "latest golang news",
 			},
 		},
