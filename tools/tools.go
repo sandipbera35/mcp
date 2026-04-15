@@ -4,10 +4,7 @@ import (
 	"github.com/mark3labs/mcp-go/server"
 )
 
-// RegisterAll binds all the custom tools to the provided MCP server
-func RegisterAll(s *server.MCPServer) {
-	RegisterFetchURLTool(s)
-	RegisterReadFileTool(s)
-	RegisterEchoTool(s)
-	RegisterWebSearchTool(s)
+// RegisterAll binds all the custom tools to the provided MCP server.
+func RegisterAll(s *server.MCPServer, handlers *Handlers) {
+	handlers.RegisterAll(s)
 }
